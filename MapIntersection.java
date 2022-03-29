@@ -1,14 +1,14 @@
-public class MapNode
+public class MapIntersection
 {
     int maxNumberOfConnections = 300;       //Estimated maximum number of connections per Node
     int connectionIndex = 0;
     MapConnection[] connectionList;
-    double distanceToNode = Double.MAX_VALUE;
-    MapNode previousNode;
-    Boolean isUnsettled;
+    double distanceToNode = Double.MAX_VALUE;           //Shalom
+    MapIntersection previousNode;
+    boolean isUnsettled;
 
 
-    MapNode()
+    MapIntersection()
     {
         this.connectionList = new MapConnection[maxNumberOfConnections];
         isUnsettled = false;
@@ -24,7 +24,7 @@ public class MapNode
         this.connectionIndex++;
     }
 
-    public double findConnectionLength(MapNode destinationNode)
+    public double findConnectionLength(MapIntersection destinationNode)
     {
         if(this == destinationNode){ return 0.0; }
         for(int i = 0; i < this.connectionIndex; i++)
@@ -43,5 +43,4 @@ public class MapNode
         this.distanceToNode = Double.MAX_VALUE;
         this.isUnsettled = false;
     }
-
 }
