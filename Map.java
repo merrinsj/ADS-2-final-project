@@ -1,16 +1,16 @@
 public class Map
 {
-    MapIntersection[] nodes;
-    int numberOfNodes;
+    Stop[] stops;
+    int numberOfStops;
     int nodeIndex = 0;
 
-    Map(int numberOfNodes)
+    Map(int numberOfStops)
     {
-        this.numberOfNodes = numberOfNodes;
-        this.nodes = new MapIntersection[numberOfNodes];
-        for(int i = 0; i < numberOfNodes; i++)
+        this.numberOfStops = numberOfStops;
+        this.stops = new [numberOfStops];
+        for(int i = 0; i < numberOfStops; i++)
         {
-            this.nodes[i] = new MapIntersection();
+            this.stops[i] = new Stop();
         }
     }
 
@@ -18,7 +18,7 @@ public class Map
     {
         for(int i = 0; i < numberOfNodes; i++)
         {
-            this.nodes[i].resetNode();
+            this.stops[i].resetNode();
         }
     }
 }

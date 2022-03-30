@@ -1,30 +1,30 @@
 public class DijkstraAlgorithm
 {
-    MapIntersection startNode;
+    Stop startNode;
     Map theMap;
-    MapIntersection[] settledNodes;
-    MapIntersection[] unsettledNodes;
+    Stop[] settledNodes;
+    Stop[] unsettledNodes;
     int unsettledNodesIndex = 0;
     int settledNodesIndex = 0;
     int numberOfNodes = 0;
-    MapIntersection nullNode = new MapIntersection();
+    Stop nullNode = new Stop();
     boolean emptyMap = false;
     boolean allNodesReachable = true;
 
     DijkstraAlgorithm(int startingNode, Map theMap, int numberOfNodes)
     {
-        if(theMap.nodes.length == 0)
+        if(theMap.stops.length == 0)
         {
             emptyMap = true;
         }
         else
         {
-            this.startNode = theMap.nodes[startingNode];
+            this.startNode = theMap.stops[startingNode];
             this.startNode.distanceToNode = 0.0;
             this.theMap = theMap;
             this.numberOfNodes = numberOfNodes;
-            this.settledNodes = new MapIntersection[this.numberOfNodes];
-            this.unsettledNodes = new MapIntersection[this.numberOfNodes];
+            this.settledNodes = new Stop[this.numberOfNodes];
+            this.unsettledNodes = new Stop[this.numberOfNodes];
             this.unsettledNodes[unsettledNodesIndex] = this.startNode;
             this.startNode.isUnsettled = true;
             unsettledNodesIndex++;
@@ -36,7 +36,7 @@ public class DijkstraAlgorithm
     {
         if(!emptyMap)
         {
-            MapIntersection nodeToRelax = new MapIntersection();
+            Stop nodeToRelax = new Stop();
             for(int i = 0; i < this.numberOfNodes; i++)
             {
                 if(!isUnsettledNodesEmpty())
@@ -64,7 +64,7 @@ public class DijkstraAlgorithm
         }
     }
 
-    public void relaxNode(MapIntersection aNode)
+    public void relaxNode(Stop aNode)
     {
         for(int i = 0; i < aNode.connectionIndex; i++)
         {
@@ -88,7 +88,7 @@ public class DijkstraAlgorithm
 
     public double longestDistance()
     {
-        MapIntersection farthestNode = new MapIntersection();
+        Stop farthestNode = new Stop();
         double distanceToFarthestNode = 0.0; //shalom
         for(int i = 0; i < settledNodesIndex; i++)
         {
@@ -101,7 +101,7 @@ public class DijkstraAlgorithm
         return distanceToFarthestNode;
     }
 
-    public void removeFromUnsettledNodes(MapIntersection aNode)
+    public void removeFromUnsettledNodes(Stop aNode)
     {
         int i = 0;
         while(unsettledNodes[i] != aNode) { i++; }
