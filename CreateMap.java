@@ -14,6 +14,10 @@ public class CreateMap {
 
     final int PIECES_OF_STOP_INFORMATION_PER_LINE = 10;
     final int PIECES_OF_EDGE_INFORMATION_PER_LINE_TRANSFER = 4;
+    final int PIECES_OF_EDGE_INFORMATION_PER_LINE_STOP_TIMES = 9;
+
+    double edgeCost;
+
     int stop_id;
     int stop_code;
     String stop_name;
@@ -29,6 +33,17 @@ public class CreateMap {
     int to_stop_id;
     int transfer_type;
     int min_transfer_time;
+
+    int trip_id;
+    String arrival_time;
+    String departure_time;
+    int stop_id_stop_times;
+    int stop_sequence;
+    int stop_headsign;
+    int pickup_type;
+    int drop_off_type;
+    double shape_dist_traveled;
+
 
     Map theMap;
     Boolean emptyMap = false;
@@ -81,10 +96,59 @@ public class CreateMap {
                 this.to_stop_id = Integer.parseInt(splitEdgeInfo[1]);
                 this.transfer_type = Integer.parseInt(splitEdgeInfo[2]);
                 this.min_transfer_time = Integer.parseInt(splitEdgeInfo[3]);
-                newConnection = new MapConnection(this.theMap.findStop(to_stop_id), transfer_type, min_transfer_time);
-                this.theMap.findStop(from_stop_id).addDestination(newConnection);
+
+                if(this.transfer_type == 0) { this.edgeCost = 2; }
+                else this.edgeCost = (min_transfer_time / 100);
+
+                newConnection = new MapConnection(this.theMap.findStop(this.to_stop_id), null, this.edgeCost);
+                this.theMap.findStop(this.from_stop_id).addDestination(newConnection);
             }
             edgeData.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        try {
+            edgeCost = 1.0;
+            boolean makeConnection = false;
+            int previousTripID = 0;
+            int previousStopID = 0;
+            int numberOfEdges = 0;
+            String edgeInfo = "";
+            String[] splitEdgeInfo = new String[PIECES_OF_EDGE_INFORMATION_PER_LINE_STOP_TIMES];
+            RandomAccessFile edgeDataStopTimes = new RandomAccessFile("stop_times.txt", "r");
+            numberOfEdges = (int) edgeDataStopTimes.length();
+            MapConnection newConnection;
+            for (int i = 0; i < numberOfEdges; i++)
+            {
+                edgeInfo = edgeDataStopTimes.readLine();
+                splitEdgeInfo = edgeInfo.trim().split(",");
+                this.trip_id = Integer.parseInt(splitEdgeInfo[0]);
+
+                if(previousTripID == this.trip_id) { makeConnection = true; }
+
+                this.arrival_time = splitEdgeInfo[1];
+                this.departure_time = splitEdgeInfo[2];
+                this.stop_id_stop_times = Integer.parseInt(splitEdgeInfo[3]);
+                this.stop_sequence = Integer.parseInt(splitEdgeInfo[4]);
+                this.stop_headsign = Integer.parseInt(splitEdgeInfo[5]);
+                this.pickup_type = Integer.parseInt(splitEdgeInfo[6]);
+                this.drop_off_type = Integer.parseInt(splitEdgeInfo[7]);
+                this.shape_dist_traveled = Double.parseDouble(splitEdgeInfo[8]);
+
+                if(makeConnection)
+                {
+                    newConnection = new MapConnection(this.trip_id, this.arrival_time, this.departure_time,
+                            this.theMap.findStop(stop_id_stop_times), this.stop_sequence, this.stop_headsign,
+                            this.pickup_type, this.drop_off_type, this.edgeCost);
+                    this.theMap.findStop(previousStopID).addDestination(newConnection);
+                }
+                previousStopID = this.stop_id_stop_times;
+                previousTripID = this.trip_id;
+                makeConnection = false;
+
+            }
+            edgeDataStopTimes.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
