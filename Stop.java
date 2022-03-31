@@ -13,6 +13,11 @@ public class Stop {
     int maxNumberOfConnections = 300;
     int destinationIndex = 0;
 
+    double distanceToStop = Double.MAX_VALUE;
+    Stop dijkstraPreviousStop;
+    boolean isUnsettled;
+    Stop[] stopsEnRoute;
+
     Stop(int stop_id, int stop_code, String stop_name, String stop_Desc, double stop_latitude, double stop_longitude,
          String zone_id, String stop_url, int location_type, int parent_station)
     {
@@ -26,16 +31,44 @@ public class Stop {
         this.stop_url = stop_url;
         this.location_type = location_type;
         this.parent_station = parent_station;
+        this.destinationList = new MapConnection[maxNumberOfConnections];
         for(int i = 0; i < maxNumberOfConnections; i++)
         {
             this.destinationList[i] = null;
         }
     }
 
+    Stop()
+    {
+        this.stop_id = 0;
+        this.stop_code = 0;
+        this.stop_name = "0";
+        this.stop_Desc = "0";
+        this.stop_latitude = 0.0;
+        this.stop_longitude = 0.0;
+        this.zone_id = "0";
+        this.stop_url = "0";
+        this.location_type = 0;
+        this.parent_station = 0;
+        this.destinationList = new MapConnection[maxNumberOfConnections];
+        for(int i = 0; i < maxNumberOfConnections; i++)
+        {
+            this.destinationList[i] = null;
+        }
+    }
+
+
     public void addDestination(MapConnection newConnection)
     {
         this.destinationList[this.destinationIndex] = newConnection;
         this.destinationIndex++;
+    }
+
+    public void resetStop()
+    {
+        this.dijkstraPreviousStop = null;
+        this.distanceToStop = Double.MAX_VALUE;
+        this.isUnsettled = false;
     }
 
 //    public double findConnectionLength(Stop destinationNode)

@@ -7,19 +7,32 @@ public class Map
     Map(int numberOfStops)
     {
         this.numberOfStops = numberOfStops;
-        this.stops = new [numberOfStops];
+        this.stops = new Stop[numberOfStops];
         for(int i = 0; i < numberOfStops; i++)
         {
-            this.stops[i] = new Stop();
+            this.stops[i] = null;
         }
     }
 
     public void resetMap()
     {
-        for(int i = 0; i < numberOfNodes; i++)
+        for(int i = 0; i < numberOfStops; i++)
         {
-            this.stops[i].resetNode();
+            this.stops[i].resetStop();
         }
     }
+
+    public Stop findStop(int stopID)
+    {
+        for(int i = 0; i < numberOfStops; i++)
+        {
+            if(stops[i].stop_id == stopID)
+            {
+                return stops[i];
+            }
+        }
+        return null;
+    }
+
 }
 

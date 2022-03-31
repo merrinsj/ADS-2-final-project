@@ -11,7 +11,7 @@ public class DijkstraAlgorithm
     boolean emptyMap = false;
     boolean allNodesReachable = true;
 
-    DijkstraAlgorithm(int startingNode, Map theMap, int numberOfNodes)
+    public DijkstraAlgorithm(int startingNode, Map theMap, int numberOfNodes)
     {
         if(theMap.stops.length == 0)
         {
@@ -20,7 +20,7 @@ public class DijkstraAlgorithm
         else
         {
             this.startNode = theMap.stops[startingNode];
-            this.startNode.distanceToNode = 0.0;
+            this.startNode.distanceToStop = 0.0;
             this.theMap = theMap;
             this.numberOfNodes = numberOfNodes;
             this.settledNodes = new Stop[this.numberOfNodes];
@@ -46,10 +46,10 @@ public class DijkstraAlgorithm
                     {
                         if(unsettledNodes[j] != nullNode)
                         {
-                            if(unsettledNodes[j].distanceToNode < closestNodeDistance)
+                            if(unsettledNodes[j].distanceToStop < closestNodeDistance)
                             {
                                 nodeToRelax = unsettledNodes[j];
-                                closestNodeDistance = unsettledNodes[j].distanceToNode;
+                                closestNodeDistance = unsettledNodes[j].distanceToStop;
                             }
                         }
                     }
@@ -66,18 +66,18 @@ public class DijkstraAlgorithm
 
     public void relaxNode(Stop aNode)
     {
-        for(int i = 0; i < aNode.connectionIndex; i++)
+        for(int i = 0; i < aNode.destinationIndex; i++)
         {
-            if(aNode.connectionList[i].connectsTo.isUnsettled == false)
+            if(aNode.destinationList[i].connectsTo.isUnsettled == false)
             {
-                unsettledNodes[unsettledNodesIndex] = aNode.connectionList[i].connectsTo;       //Put the reachable nodes into the unsettled array
-                aNode.connectionList[i].connectsTo.isUnsettled = true;
+                unsettledNodes[unsettledNodesIndex] = aNode.destinationList[i].connectsTo;       //Put the reachable nodes into the unsettled array
+                aNode.destinationList[i].connectsTo.isUnsettled = true;
                 unsettledNodesIndex++;
             }
-            if(aNode.connectionList[i].connectsTo.distanceToNode > aNode.distanceToNode + aNode.connectionList[i].linkLength)
+            if(aNode.destinationList[i].connectsTo.distanceToStop > aNode.distanceToStop + aNode.destinationList[i].min_transfer_time)
             {
-                aNode.connectionList[i].connectsTo.distanceToNode = aNode.distanceToNode + aNode.connectionList[i].linkLength; //Put the arrays in unsettled array
-                aNode.connectionList[i].connectsTo.previousNode = aNode;                                                           //and set their length
+                aNode.destinationList[i].connectsTo.distanceToStop = aNode.distanceToStop + aNode.destinationList[i].min_transfer_time; //Put the arrays in unsettled array
+                aNode.destinationList[i].connectsTo.dijkstraPreviousStop = aNode;                                                           //and set their length
             }
         }
         settledNodes[settledNodesIndex] = aNode;
@@ -92,10 +92,10 @@ public class DijkstraAlgorithm
         double distanceToFarthestNode = 0.0; //shalom
         for(int i = 0; i < settledNodesIndex; i++)
         {
-            if(settledNodes[i].distanceToNode > distanceToFarthestNode)
+            if(settledNodes[i].distanceToStop > distanceToFarthestNode)
             {
                 farthestNode = settledNodes[i];
-                distanceToFarthestNode = settledNodes[i].distanceToNode;
+                distanceToFarthestNode = settledNodes[i].distanceToStop;
             }
         }
         return distanceToFarthestNode;
