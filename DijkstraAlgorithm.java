@@ -74,9 +74,9 @@ public class DijkstraAlgorithm
                 aNode.destinationList[i].connectsTo.isUnsettled = true;
                 unsettledNodesIndex++;
             }
-            if(aNode.destinationList[i].connectsTo.distanceToStop > aNode.distanceToStop + aNode.destinationList[i].min_transfer_time)
+            if(aNode.destinationList[i].connectsTo.distanceToStop > aNode.distanceToStop + aNode.destinationList[i].cost)
             {
-                aNode.destinationList[i].connectsTo.distanceToStop = aNode.distanceToStop + aNode.destinationList[i].min_transfer_time; //Put the arrays in unsettled array
+                aNode.destinationList[i].connectsTo.distanceToStop = aNode.distanceToStop + aNode.destinationList[i].cost; //Put the arrays in unsettled array
                 aNode.destinationList[i].connectsTo.dijkstraPreviousStop = aNode;                                                           //and set their length
             }
         }
