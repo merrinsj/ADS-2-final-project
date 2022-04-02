@@ -3,7 +3,7 @@ import java.util.Scanner;
 
 public class ShortestPathBetweenTwoStops {
 
-    public static double ShortestPathBetweenTwoStops(Map theMap, TST theTST)
+    public static void ShortestPathBetweenTwoStops(Map theMap, TST theTST)
     {
         Scanner userInput = new Scanner(System.in);
         ArrayList<String> listOfSuggestions;
@@ -26,7 +26,15 @@ public class ShortestPathBetweenTwoStops {
                     {
                         busStopTwo = listOfSuggestions.get(userInput.nextInt());
                         DijkstraAlgorithm dijkstra = new DijkstraAlgorithm(busStopOne, theMap, theMap.numberOfStops);
-                        return dijkstra.distanceFromStartNodeToSpecifiedNode(busStopTwo);
+                        double theDistance = dijkstra.distanceFromStartNodeToSpecifiedNode(busStopTwo);
+                        ArrayList<Stop> stopsEnRoute = dijkstra.findShortestPathStops(busStopTwo);
+                        System.out.println("The journey of least cost from " + busStopOne + " to " + busStopTwo + " costs" +
+                                theDistance);
+                        System.out.println("The path of this journey goes through the following stops");
+                        for(int i = stopsEnRoute.size() - 1; i >= 0; i--)
+                        {
+                            System.out.println(stopsEnRoute.get(i));
+                        }
                     }
                     else BusManagementSystem.badInput();
                 }
@@ -36,7 +44,6 @@ public class ShortestPathBetweenTwoStops {
         }
         else BusManagementSystem.badInput();
         System.out.println("Something went wrong shortest path");
-        return 0.0;
     }
 
 }

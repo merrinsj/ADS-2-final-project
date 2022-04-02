@@ -81,6 +81,7 @@ public class CreateMapAndTST {
                     }
                     alteredStringForTST = alteredStringForTST + stopNameSplit[0];
                     theTST.insert(alteredStringForTST);
+                    stop_name = alteredStringForTST;
                 }
 
                 stop_desc = stopInfoSplit[3];
@@ -162,7 +163,7 @@ public class CreateMapAndTST {
                 {
                     newConnection = new MapConnection(trip_id, arrival_time, departure_time,
                             theMap.findStopID(stop_id_stop_times), stop_sequence, stop_headsign,
-                            pickup_type, drop_off_type, edgeCost);
+                            pickup_type, drop_off_type, shape_dist_traveled, edgeCost);
                     theMap.findStopID(previousStopID).addDestination(newConnection);
                 }
                 previousStopID = stop_id_stop_times;

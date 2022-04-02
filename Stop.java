@@ -1,4 +1,5 @@
 public class Stop {
+    public final int MAX_NUMBER_OF_CONNECTIONS = 300;
     int stop_id;
     int stop_code;
     String stop_name;
@@ -10,7 +11,6 @@ public class Stop {
     int location_type;
     int parent_station;
     MapConnection[] destinationList;
-    int maxNumberOfConnections = 300;
     int destinationIndex = 0;
 
     double distanceToStop = Double.MAX_VALUE;
@@ -31,8 +31,8 @@ public class Stop {
         this.stop_url = stop_url;
         this.location_type = location_type;
         this.parent_station = parent_station;
-        this.destinationList = new MapConnection[maxNumberOfConnections];
-        for(int i = 0; i < maxNumberOfConnections; i++)
+        this.destinationList = new MapConnection[MAX_NUMBER_OF_CONNECTIONS];
+        for(int i = 0; i < MAX_NUMBER_OF_CONNECTIONS; i++)
         {
             this.destinationList[i] = null;
         }
@@ -50,8 +50,8 @@ public class Stop {
         this.stop_url = "0";
         this.location_type = 0;
         this.parent_station = 0;
-        this.destinationList = new MapConnection[maxNumberOfConnections];
-        for(int i = 0; i < maxNumberOfConnections; i++)
+        this.destinationList = new MapConnection[MAX_NUMBER_OF_CONNECTIONS];
+        for(int i = 0; i < MAX_NUMBER_OF_CONNECTIONS; i++)
         {
             this.destinationList[i] = null;
         }
@@ -69,6 +69,22 @@ public class Stop {
         this.dijkstraPreviousStop = null;
         this.distanceToStop = Double.MAX_VALUE;
         this.isUnsettled = false;
+    }
+
+    public String toString()
+    {
+        String stopInfo = this.stop_id + ", " +
+                this.stop_code + ", " +
+                this.stop_name + ", " +
+                this.stop_Desc + ", " +
+                this.stop_latitude + ", " +
+                this.stop_longitude + ", " +
+                this.zone_id + ", " +
+                this.stop_url + ", " +
+                this.location_type + ", " +
+                this.parent_station;
+        return stopInfo;
+
     }
 
 //    public double findConnectionLength(Stop destinationNode)

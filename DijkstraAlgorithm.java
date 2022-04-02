@@ -1,3 +1,5 @@
+import java.util.ArrayList;
+
 public class DijkstraAlgorithm
 {
     Stop startNode;
@@ -126,6 +128,19 @@ public class DijkstraAlgorithm
         Stop destinationStop = theMap.findStopName(nodeName);
         dijkstraMethod();
         return destinationStop.distanceToStop;
+    }
+
+    public ArrayList<Stop> findShortestPathStops(String destinationStop)      //Returns the order of stops on the journey in
+    {                                                                           //reverse order
+        ArrayList<Stop> stopsEnRoute = new ArrayList<>();
+        Stop currStop = theMap.findStopName(destinationStop);
+        while(currStop != startNode)
+        {
+            stopsEnRoute.add(currStop);
+            currStop = currStop.dijkstraPreviousStop;
+        }
+        stopsEnRoute.add(currStop);
+        return stopsEnRoute;
     }
 
 }

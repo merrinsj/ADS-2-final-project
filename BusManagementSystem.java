@@ -16,7 +16,7 @@ public class BusManagementSystem {
             System.out.print("What would you like to know? Please enter a number for whichever option you'd like\n");
             System.out.print("1. Find the distance between two stops\n" +
                     "2. Search for a bus stop\n" +
-                    "3. Search for all trips by arrival time" +
+                    "3. Search for all trips by arrival time\n" +
                     "4. Exit the program");
             Scanner userInput = new Scanner(System.in);
             if(userInput.hasNextInt())
@@ -30,15 +30,16 @@ public class BusManagementSystem {
                             ShortestPathBetweenTwoStops.ShortestPathBetweenTwoStops(theMap, theTST);
                             break;
                         case 2:
+                            SearchForABusStop.SearchForABusStop(theMap, theTST);
                             break;
                         case 3:
+                            SearchByArrivalTime.SearchByArrivalTime(theMap, theTST);
                             break;
                         case 4:
-
+                            inSystem = false;
                     }
                 }
                 else badInput();
-
             }
             else badInput();
         }
