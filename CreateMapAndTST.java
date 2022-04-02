@@ -118,8 +118,8 @@ public class CreateMapAndTST {
                 if(transfer_type == 0) { edgeCost = 2; }
                 else edgeCost = (min_transfer_time / 100);
 
-                newConnection = new MapConnection(theMap.findStop(to_stop_id), null, edgeCost);
-                theMap.findStop(from_stop_id).addDestination(newConnection);
+                newConnection = new MapConnection(theMap.findStopID(to_stop_id), null, edgeCost);
+                theMap.findStopID(from_stop_id).addDestination(newConnection);
             }
             edgeData.close();
         } catch (IOException e) {
@@ -161,9 +161,9 @@ public class CreateMapAndTST {
                 if(makeConnection)
                 {
                     newConnection = new MapConnection(trip_id, arrival_time, departure_time,
-                            theMap.findStop(stop_id_stop_times), stop_sequence, stop_headsign,
+                            theMap.findStopID(stop_id_stop_times), stop_sequence, stop_headsign,
                             pickup_type, drop_off_type, edgeCost);
-                    theMap.findStop(previousStopID).addDestination(newConnection);
+                    theMap.findStopID(previousStopID).addDestination(newConnection);
                 }
                 previousStopID = stop_id_stop_times;
                 previousTripID = trip_id;

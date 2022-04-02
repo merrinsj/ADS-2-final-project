@@ -11,7 +11,7 @@ public class DijkstraAlgorithm
     boolean emptyMap = false;
     boolean allNodesReachable = true;
 
-    public DijkstraAlgorithm(int startingNode, Map theMap, int numberOfNodes)
+    public DijkstraAlgorithm(String startingNode, Map theMap, int numberOfNodes)
     {
         if(theMap.stops.length == 0)
         {
@@ -19,7 +19,7 @@ public class DijkstraAlgorithm
         }
         else
         {
-            this.startNode = theMap.stops[startingNode];
+            this.startNode = theMap.findStopName(startingNode);
             this.startNode.distanceToStop = 0.0;
             this.theMap = theMap;
             this.numberOfNodes = numberOfNodes;
@@ -119,6 +119,13 @@ public class DijkstraAlgorithm
             }
         }
         return isEmpty;
+    }
+
+    public double distanceFromStartNodeToSpecifiedNode(String nodeName)
+    {
+        Stop destinationStop = theMap.findStopName(nodeName);
+        dijkstraMethod();
+        return destinationStop.distanceToStop;
     }
 
 }

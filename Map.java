@@ -22,7 +22,19 @@ public class Map
         }
     }
 
-    public Stop findStop(int stopID)
+    public Stop findStopName(String stopName)
+    {
+        for(int i = 0; i < numberOfStops; i++)
+        {
+            if(stops[i].stop_name == stopName)
+            {
+                return stops[i];
+            }
+        }
+        return null;
+    }
+
+    public Stop findStopID(int stopID)
     {
         for(int i = 0; i < numberOfStops; i++)
         {
