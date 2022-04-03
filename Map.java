@@ -26,7 +26,7 @@ public class Map
     {
         for(int i = 0; i < numberOfStops; i++)
         {
-            if(stops[i].stop_name == stopName)
+            if(stops[i].stop_name.equalsIgnoreCase(stopName))
             {
                 return stops[i];
             }

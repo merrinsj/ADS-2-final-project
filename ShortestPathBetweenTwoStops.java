@@ -13,37 +13,48 @@ public class ShortestPathBetweenTwoStops {
             String busStopOne = userInput.next();
             listOfSuggestions = theTST.autocompleteWord(busStopOne);
             theTST.print(listOfSuggestions);
-            if(userInput.hasNextInt() && userInput.nextInt() < listOfSuggestions.size())
+            if(userInput.hasNextInt())
             {
-                busStopOne = listOfSuggestions.get(userInput.nextInt());
-                System.out.println("Please enter the name of the second stop");
-                if(userInput.hasNext())
+                int numbSelected = userInput.nextInt();
+                if(numbSelected < listOfSuggestions.size())
                 {
-                    String busStopTwo = userInput.next();
-                    listOfSuggestions = theTST.autocompleteWord(busStopTwo);
-                    theTST.print(listOfSuggestions);
-                    if(userInput.hasNextInt() && userInput.nextInt() < listOfSuggestions.size())
+                    busStopOne = listOfSuggestions.get(numbSelected);
+                    System.out.println("Please enter the name of the second stop");
+                    if(userInput.hasNext())
                     {
-                        busStopTwo = listOfSuggestions.get(userInput.nextInt());
-                        DijkstraAlgorithm dijkstra = new DijkstraAlgorithm(busStopOne, theMap, theMap.numberOfStops);
-                        double theDistance = dijkstra.distanceFromStartNodeToSpecifiedNode(busStopTwo);
-                        ArrayList<Stop> stopsEnRoute = dijkstra.findShortestPathStops(busStopTwo);
-                        System.out.println("The journey of least cost from " + busStopOne + " to " + busStopTwo + " costs" +
-                                theDistance);
-                        System.out.println("The path of this journey goes through the following stops");
-                        for(int i = stopsEnRoute.size() - 1; i >= 0; i--)
+                        String busStopTwo = userInput.next();
+                        listOfSuggestions = theTST.autocompleteWord(busStopTwo);
+                        theTST.print(listOfSuggestions);
+                        if(userInput.hasNextInt())
                         {
-                            System.out.println(stopsEnRoute.get(i));
+                            numbSelected = userInput.nextInt();
+                            if(numbSelected < listOfSuggestions.size())
+                            {
+                                busStopTwo = listOfSuggestions.get(numbSelected);
+                                DijkstraAlgorithm dijkstra = new DijkstraAlgorithm(busStopOne, theMap, theMap.numberOfStops);
+                                double theDistance = dijkstra.distanceFromStartNodeToSpecifiedNode(busStopTwo);
+                                if(theDistance != Double.MAX_VALUE)
+                                {
+                                    ArrayList<Stop> stopsEnRoute = dijkstra.findShortestPathStops(busStopTwo);
+                                    System.out.println("The journey of least cost from " + busStopOne + " to " + busStopTwo + " costs" +
+                                            theDistance);
+                                    System.out.println("The path of this journey goes through the following stops");
+                                    for(int i = stopsEnRoute.size() - 1; i >= 0; i--)
+                                    {
+                                        System.out.println(stopsEnRoute.get(i));
+                                    }
+                                }
+                                else System.out.println("There exists no path between these two stops");
+                            }
                         }
+                        else BusManagementSystem.badInput();
                     }
                     else BusManagementSystem.badInput();
                 }
-                else BusManagementSystem.badInput();
             }
             else BusManagementSystem.badInput();
         }
         else BusManagementSystem.badInput();
         System.out.println("Something went wrong shortest path");
     }
-
 }

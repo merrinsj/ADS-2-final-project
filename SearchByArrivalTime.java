@@ -24,8 +24,8 @@ public class SearchByArrivalTime {
                 {
                     timeNumbers[i] = Integer.parseInt(timeInputSplit[i]);
                 }
-                if((timeNumbers[0] >= 0 && timeNumbers[0] <= 23) && (timeNumbers[1] >= 0 && timeNumbers[1] <= 23) &&
-                        (timeNumbers[2] >= 0 && timeNumbers[2] <= 23))
+                if((timeNumbers[0] >= 0 && timeNumbers[0] <= 23) && (timeNumbers[1] >= 0 && timeNumbers[1] <= 59) &&
+                        (timeNumbers[2] >= 0 && timeNumbers[2] <= 59))
                 {
                     appropriateTimeEntered = true;
                 }

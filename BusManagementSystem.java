@@ -5,16 +5,16 @@ import java.util.Scanner;
 
 public class BusManagementSystem {
 
-    public static void main() throws FileNotFoundException {
+    public static void main(String[] args) throws FileNotFoundException {
         CreateMapAndTST.CreateMapAndTST();
         Map theMap = CreateMapAndTST.getTheMap();
         TST theTST = CreateMapAndTST.getTheTST();
         boolean inSystem = true;
-        System.out.print("Welcome to our bus management system\n");
+        System.out.println("Welcome to our bus management system");
         while(inSystem)
         {
-            System.out.print("What would you like to know? Please enter a number for whichever option you'd like\n");
-            System.out.print("1. Find the distance between two stops\n" +
+            System.out.println("What would you like to know? Please enter a number for whichever option you'd like\n");
+            System.out.println("1. Find the distance between two stops\n" +
                     "2. Search for a bus stop\n" +
                     "3. Search for all trips by arrival time\n" +
                     "4. Exit the program");

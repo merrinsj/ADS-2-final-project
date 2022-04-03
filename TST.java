@@ -74,7 +74,7 @@ public class TST {
         TSTNode tmpRoot = root;
         char[] charArray = incompleteWord.toCharArray();
         ArrayList<String> possibleOptions = new ArrayList<String>();
-        if (!search(incompleteWord) || incompleteWord == "") {
+        if (incompleteWord == "") {
             System.out.println("No results");
             return possibleOptions;
         }
