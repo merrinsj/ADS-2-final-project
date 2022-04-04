@@ -79,17 +79,20 @@ public class TST {
             return possibleOptions;
         }
 
-        while (index < incompleteWord.length()) {
-            if (tmpRoot.theChar > charArray[index]) {
-                tmpRoot = tmpRoot.left;
-            } else if (tmpRoot.theChar < charArray[index]) {
-                tmpRoot = tmpRoot.right;
-            } else if (tmpRoot.theChar == charArray[index]) {
-                tmpRoot = tmpRoot.middle;
-                index++;
-            } else return possibleOptions;
+        if(tmpRoot != null)
+        {
+            while (index < incompleteWord.length()) {
+                if (tmpRoot.theChar > charArray[index]) {
+                    tmpRoot = tmpRoot.left;
+                } else if (tmpRoot.theChar < charArray[index]) {
+                    tmpRoot = tmpRoot.right;
+                } else if (tmpRoot.theChar == charArray[index]) {
+                    tmpRoot = tmpRoot.middle;
+                    index++;
+                } else return possibleOptions;
+            }
+            possibleOptions = traverse(tmpRoot, incompleteWord, possibleOptions);
         }
-        possibleOptions = traverse(tmpRoot, incompleteWord, possibleOptions);
         return possibleOptions;
     }
 

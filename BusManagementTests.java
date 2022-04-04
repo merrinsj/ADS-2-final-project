@@ -15,4 +15,15 @@ public class BusManagementTests {
             System.out.println(theMap.findStopName(startNode).destinationList[i].toString());
         }
     }
+
+    @Test
+    public void testEquals()
+    {
+        String s1 = "6:30:19";
+        String s2 = "6:30:19";
+        if(s1.equals(s2))
+        {
+            System.out.println("equal");
+        }
+    }
 }

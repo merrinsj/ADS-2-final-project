@@ -54,7 +54,10 @@ public class ShortestPathBetweenTwoStops {
             }
             else BusManagementSystem.badInput();
         }
-        else BusManagementSystem.badInput();
-        System.out.println("Something went wrong shortest path");
+        else
+        {
+            BusManagementSystem.badInput();
+            System.out.println("Something went wrong shortest path");
+        }
     }
 }

@@ -148,7 +148,7 @@ public class CreateMapAndTST {
             String edgeInfo = "";
             String[] splitEdgeInfo = new String[PIECES_OF_EDGE_INFORMATION_PER_LINE_STOP_TIMES];
             String[] arrivalTimeIntegers = new String[3];   //Number of integers in this time representation
-            RandomAccessFile edgeDataStopTimes = new RandomAccessFile("stop_times.txt", "r");
+            RandomAccessFile edgeDataStopTimes = new RandomAccessFile("stop_times_short.txt", "r");
             numberOfEdges = (int) edgeDataStopTimes.length();
             MapConnection newConnection;
             edgeInfo = edgeDataStopTimes.readLine();                        //Skip the first line of the file
@@ -163,6 +163,15 @@ public class CreateMapAndTST {
                     if(previousTripID == trip_id) { makeConnection = true; }       //Check if these stops are on the same trip
 
                     arrival_time = splitEdgeInfo[1];
+                    char[] arrival_time_chars = arrival_time.toCharArray();
+                    if(arrival_time_chars[0] == 32)
+                    {
+                        arrival_time = "";
+                        for(int j = 0; j < arrival_time_chars.length - 1; j++)
+                        {
+                            arrival_time = arrival_time + arrival_time_chars[j + 1];
+                        }
+                    }
                     arrivalTimeIntegers = arrival_time.trim().split(":");
                     if(Integer.parseInt(arrivalTimeIntegers[0]) > 23){ makeConnection = false; }    //Check for invalid arrival times
 

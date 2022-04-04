@@ -20,14 +20,19 @@ public class SearchByArrivalTime {
                 String[] timeInputSplit = new String[NUMBER_OF_NUMBERS_IN_TIME_INPUT];
                 timeInputSplit = timeInput.trim().split(":");
                 int[] timeNumbers = new int[NUMBER_OF_NUMBERS_IN_TIME_INPUT];
-                for(int i = 0; i < timeInputSplit.length; i++)
-                {
-                    timeNumbers[i] = Integer.parseInt(timeInputSplit[i]);
-                }
-                if((timeNumbers[0] >= 0 && timeNumbers[0] <= 23) && (timeNumbers[1] >= 0 && timeNumbers[1] <= 59) &&
-                        (timeNumbers[2] >= 0 && timeNumbers[2] <= 59))
-                {
-                    appropriateTimeEntered = true;
+                try{
+                    for(int i = 0; i < timeInputSplit.length; i++)
+                    {
+                        timeNumbers[i] = Integer.parseInt(timeInputSplit[i]);
+                    }
+                    if((timeNumbers[0] >= 0 && timeNumbers[0] <= 23) && (timeNumbers[1] >= 0 && timeNumbers[1] <= 59) &&
+                            (timeNumbers[2] >= 0 && timeNumbers[2] <= 59))
+                    {
+                        appropriateTimeEntered = true;
+                    }
+                    else System.out.println("Please enter a time in the specified format");
+                } catch (NumberFormatException e) {
+                System.out.println("Please enter a time in the specified format");
                 }
             }
             else
@@ -40,13 +45,16 @@ public class SearchByArrivalTime {
         for(int i = 0; i < theMap.numberOfStops; i++)
         {
             currStop = theMap.stops[i];
-            for(int j = 0; j < currStop.destinationList.length; j++)
+            if(currStop != null)
             {
-                if(currStop.destinationList[j].arrivalTime != null)
+                for(int j = 0; j < currStop.destinationIndex; j++)
                 {
-                    if(currStop.destinationList[j].arrivalTime == timeInput)
+                    if(currStop.destinationList[j].arrivalTime != null)
                     {
-                        listOfAppropriateStops.add(currStop.destinationList[j]);
+                        if(currStop.destinationList[j].arrivalTime.equals(timeInput))
+                        {
+                            listOfAppropriateStops.add(currStop.destinationList[j]);
+                        }
                     }
                 }
             }
@@ -58,9 +66,13 @@ public class SearchByArrivalTime {
         }
         sortedAppropriateTimeList = MergeSortRecursiveTripID.MergeSortRecursiveTripID(sortedAppropriateTimeList);
         System.out.println("Results sorted by trip ID:");
-        for(int i = 0; i < sortedAppropriateTimeList.length; i++)
+        if(sortedAppropriateTimeList.length != 0)
         {
-            System.out.println(sortedAppropriateTimeList[i].toString());
+            for(int i = 0; i < sortedAppropriateTimeList.length; i++)
+            {
+                System.out.println(sortedAppropriateTimeList[i].toString());
+            }
         }
+        else System.out.println("No matching results");
     }
 }
