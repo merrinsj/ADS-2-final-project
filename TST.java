@@ -74,14 +74,17 @@ public class TST {
         TSTNode tmpRoot = root;
         char[] charArray = incompleteWord.toCharArray();
         ArrayList<String> possibleOptions = new ArrayList<String>();
-        if (incompleteWord == "") {
+        if (incompleteWord.isEmpty()) {
             System.out.println("No results");
             return possibleOptions;
         }
 
-        if(tmpRoot != null)
+
+
+        while (index < incompleteWord.length())
         {
-            while (index < incompleteWord.length()) {
+            if(tmpRoot != null)
+            {
                 if (tmpRoot.theChar > charArray[index]) {
                     tmpRoot = tmpRoot.left;
                 } else if (tmpRoot.theChar < charArray[index]) {
@@ -91,8 +94,9 @@ public class TST {
                     index++;
                 } else return possibleOptions;
             }
-            possibleOptions = traverse(tmpRoot, incompleteWord, possibleOptions);
+            else break;
         }
+        possibleOptions = traverse(tmpRoot, incompleteWord, possibleOptions);
         return possibleOptions;
     }
 

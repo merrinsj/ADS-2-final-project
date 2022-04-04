@@ -46,6 +46,6 @@ public class BusManagementSystem {
     }
     public static void badInput()
     {
-        System.out.print("Bad input. Please enter a number between 1 and 4");
+        System.out.println("Please enter a number in the appropriate range");
     }
 }

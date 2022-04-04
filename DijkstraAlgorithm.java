@@ -134,12 +134,15 @@ public class DijkstraAlgorithm
     {                                                                           //reverse order
         ArrayList<Stop> stopsEnRoute = new ArrayList<>();
         Stop currStop = theMap.findStopName(destinationStop);
-        while(currStop != startNode)
+        if(currStop != null)
         {
+            while(currStop != startNode)
+            {
+                stopsEnRoute.add(currStop);
+                currStop = currStop.dijkstraPreviousStop;
+            }
             stopsEnRoute.add(currStop);
-            currStop = currStop.dijkstraPreviousStop;
         }
-        stopsEnRoute.add(currStop);
         return stopsEnRoute;
     }
 
