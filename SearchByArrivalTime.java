@@ -7,6 +7,9 @@ public class SearchByArrivalTime {
 
     public static void SearchByArrivalTime(Map theMap, TST theTST)
     {
+        String timeHours = "";
+        String timeMinutes = "";
+        String timeSeconds = "";
         boolean appropriateTimeEntered = false;
         String timeInput = "";
         Scanner userInput = new Scanner(System.in);
@@ -28,6 +31,20 @@ public class SearchByArrivalTime {
                     if((timeNumbers[0] >= 0 && timeNumbers[0] <= 23) && (timeNumbers[1] >= 0 && timeNumbers[1] <= 59) &&
                             (timeNumbers[2] >= 0 && timeNumbers[2] <= 59))
                     {
+                        timeHours = timeInputSplit[0];
+                        if(timeNumbers[1] >= 0 && timeNumbers[1] < 10)
+                        {
+                            timeMinutes = "0" + timeNumbers[1];
+                        }
+                        else timeMinutes = timeInputSplit[1];
+
+                        if(timeNumbers[2] >= 0 && timeNumbers[2] < 10)
+                        {
+                            timeSeconds = "0" + timeNumbers[2];
+                        }
+                        else timeSeconds = timeInputSplit[2];
+
+                        timeInput = timeHours + ":" + timeMinutes + ":" + timeSeconds;
                         appropriateTimeEntered = true;
                     }
                     else System.out.println("Please enter a time in the specified format");
@@ -37,7 +54,6 @@ public class SearchByArrivalTime {
             }
             else
             {
-                BusManagementSystem.badInput();
                 System.out.println("Please enter an arrival time in the specified format");
             }
         }
@@ -72,6 +88,7 @@ public class SearchByArrivalTime {
             {
                 System.out.println(sortedAppropriateTimeList[i].toString());
             }
+            System.out.print("\n");
         }
         else System.out.println("No matching results");
     }

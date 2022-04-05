@@ -89,6 +89,7 @@ public class CreateMapAndTST {
                         theTST.insert(alteredStringForTST);
                         stop_name = alteredStringForTST;
                     }
+                    else theTST.insert(stop_name);
 
                     stop_desc = stopInfoSplit[3];
                     stop_latitude = Double.parseDouble(stopInfoSplit[4]);
@@ -128,7 +129,7 @@ public class CreateMapAndTST {
                     if(splitEdgeInfo.length == 4) { min_transfer_time = Integer.parseInt(splitEdgeInfo[3]); }
 
                     if(transfer_type == 0) { edgeCost = 2; }
-                    else edgeCost = (min_transfer_time / 100);
+                    else edgeCost = ((double) min_transfer_time / 100);
 
                     newConnection = new MapConnection(theMap.findStopID(to_stop_id), null, edgeCost);
                     theMap.findStopID(from_stop_id).addDestination(newConnection);
@@ -148,7 +149,7 @@ public class CreateMapAndTST {
             String edgeInfo = "";
             String[] splitEdgeInfo = new String[PIECES_OF_EDGE_INFORMATION_PER_LINE_STOP_TIMES];
             String[] arrivalTimeIntegers = new String[3];   //Number of integers in this time representation
-            RandomAccessFile edgeDataStopTimes = new RandomAccessFile("stop_times_short.txt", "r");
+            RandomAccessFile edgeDataStopTimes = new RandomAccessFile("stop_times.txt", "r");
             numberOfEdges = (int) edgeDataStopTimes.length();
             MapConnection newConnection;
             edgeInfo = edgeDataStopTimes.readLine();                        //Skip the first line of the file

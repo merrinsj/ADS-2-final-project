@@ -46,6 +46,6 @@ public class BusManagementSystem {
     }
     public static void badInput()
     {
-        System.out.println("Please enter a number in the appropriate range");
+        System.out.println("Please enter a number in the appropriate range\n");
     }
 }

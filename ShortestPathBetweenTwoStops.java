@@ -74,8 +74,9 @@ public class ShortestPathBetweenTwoStops {
             {
                 System.out.println(stopsEnRoute.get(i));
             }
+            System.out.print("\n");
         }
-        else System.out.println("There exists no path between these two stops");
+        else System.out.println("There exists no path between these two stops\n");
     }
 }
 

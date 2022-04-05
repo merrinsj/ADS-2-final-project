@@ -23,6 +23,7 @@ public class SearchForABusStop {
             {
                 System.out.println("No stop names match the search criteria");
             }
+            System.out.print("\n");
         }
         else BusManagementSystem.badInput();
     }
